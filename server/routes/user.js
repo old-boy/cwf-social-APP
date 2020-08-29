@@ -5,9 +5,10 @@ var crypto = require('crypto')
 var { handleError } = require('./../public/handleError.js')
 
 const User = require('./../models/user')
-const userRouter = express.Router();
+var userRouter = express.Router();
 
-userRouter.router('/')
+//module.route 链式写法
+userRouter.route('/')
     .get((req,res,next) => {
         User.find({})
             .sort({'_id':-1})
@@ -39,7 +40,7 @@ userRouter.router('/')
             .catch(err => console.log(err))
     })
 
-userRouter.router('/add')
+userRouter.route('/add')
     .post((req,res) => {
         User.findOne({userName: req.body.userName}).then((users) => {
             if(users){
@@ -84,4 +85,77 @@ userRouter.router('/add')
         })
     })
 
+//update    
+userRouter.route('/:id')
+    .post((req, res) => {
+        var _id = `${req.params.id}`;
+        User.findByIdAndUpdate({ _id }, req.body, (err, faq) => {
+            if (err) {
+                res.status(500).json({ message: err })
+            } else {
+                res.status(200).json({ message: "更新成功" })
+            }
+        })
+    })
+    .delete((req, res) => {
+        var _id = `${req.params.id}`;
+        User.findById({ _id }).then((user) => {
+            if (!user) {
+                res.status(400).json({ message: "faq 不存在" })
+            } else {
+                User.deleteOne({ _id }).then(faq => res.status(200).json({ message: "删除成功" })).catch(err => { console.log(err) })
+            }
+        })
+    })
 
+//login
+userRouter.route('/login')
+    .post((req,res,next) => {
+        var userName = req.body.userName,
+            password = req.body.password;
+        User.findOne({'userName': userName})
+        .exec()
+		.then((user) => {
+			if (user) {
+				user.comparePwd(password, (err, isMatch) => {
+					if (err) throw err
+					if (isMatch == true) {
+						req.session.user = user
+						res.json({
+							status: '1',
+							msg: '',
+							result: {
+								'user': user,
+								'sessionId': req.session.id
+							}
+						})
+					} else {
+						res.json({
+							status: '0',
+							msg: 'password incorrect',
+							result: ''
+						})
+					}
+				})
+			} else {
+				res.json({
+					status: '0',
+					msg: '用户不存在',
+					result: ''
+				})
+			}
+		})
+    })
+
+//loginout
+userRouter.route('/logout')
+    .get((req,res,next) => {
+        delete req.session.user
+        res.json({
+            status: '1',
+            msg: '用户已退出',
+            result: ''
+        })
+    })
+    
+module.exports = userRouter;
