@@ -2,13 +2,16 @@ var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var expressSession = require('express-session')
+const swaggerUi = require('swagger-ui-express');
 var MongoStore = require('connect-mongo')(expressSession)
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 var morgan = require('morgan') //日志
 var port = normalizePort(process.env.PORT || '3000');
+const swaggerDocument = require('./config/swagger.json');
 
 var app = express()
+
 mongoose.Promise = global.Promise
 const dburl = "mongodb://localhost:27017/social";
 
@@ -64,6 +67,9 @@ saveUninitialized: false
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('view engine', 'jade')
+
+//api doc
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //router
 var index = require('./routes/index')
