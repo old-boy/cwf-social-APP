@@ -2,7 +2,6 @@ var express = require('express')
 var fs = require('fs')
 var path = require('path')
 var crypto = require('crypto')
-var { handleError } = require('../../public/handleError.js')
 
 const User = require('../../models/user/user')
 var router = express.Router();

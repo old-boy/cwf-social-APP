@@ -54,7 +54,7 @@
                     v-if="avatarUrl"
                   />
                   <img
-                    src="./../assets/img/a1.jpg"
+                    src="../assets/a1.jpg"
                     alt="logo"
                     width="42"
                     height="42"
