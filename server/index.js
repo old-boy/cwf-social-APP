@@ -6,21 +6,23 @@ var swaggerUi = require('swagger-ui-express');
 var MongoStore = require('connect-mongo')(expressSession)
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
-var morgan = require('morgan') //日志
-var port = normalizePort(process.env.PORT || '3000');
+var morgan = require('morgan') 
 var swaggerDocument = require('./config/swagger.json');
 
 var app = express()
+var port = normalizePort(process.env.PORT || '3000');
 
 mongoose.Promise = global.Promise
 const dburl = "mongodb://localhost:27017/social";
 
 mongoose.connect(dburl, { 
-    useNewUrlParser: true, 
-    useFindAndModify: false, 
-    useCreateIndex: true, 
-    useUnifiedTopology: true 
-}).then(() => console.log('Database Successful！')).catch((err) => console.log(err));
+  useNewUrlParser: true, 
+  useFindAndModify: false, 
+  useCreateIndex: true, 
+  useUnifiedTopology: true 
+}).then(() => console.log('Database connected！')).catch((err) => console.log(err));
+
+
 
 
 function normalizePort(val) {
@@ -47,6 +49,7 @@ console.log('Mongodb disconnected!')
 })
 
 app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'jade')
   
 
 app.use(morgan('dev'))
@@ -54,15 +57,15 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser('appsecrettoken'))
 app.use(expressSession({
-secret: 'appsecrettoken',
-cookie: {
-    maxAge: 24 * 3600 * 1000 * 7
-},
-store: new MongoStore({
-    url: 'mongodb://127.0.0.1:27017/social'
-}),
-resave: false,
-saveUninitialized: false
+    secret: 'appsecrettoken',
+    cookie: {
+        maxAge: 24 * 3600 * 1000 * 7
+    },
+    store: new MongoStore({
+        url: dburl
+    }),
+    resave: false,
+    saveUninitialized: false
 }))
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -72,7 +75,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //router
 var index = require('./routes/index')
-var users = require('./routes/user/user')
+var users = require('./routes/users/user')
 
 app.use('/', index)
 app.use('/users', users)
