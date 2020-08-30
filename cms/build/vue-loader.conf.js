@@ -7,6 +7,21 @@ const sourceMapEnabled = isProduction
   : config.dev.cssSourceMap
 
 module.exports = {
+  rules:[
+    {
+      test: /\.vue$/,
+      loader: 'vue-loader',
+      options: {
+        hotReload: false // 关闭热重载
+      },
+      test: /\.scss$/,
+      use: [
+        'vue-style-loader',
+        'css-loader',
+        'sass-loader'
+      ]
+    }
+  ],
   loaders: utils.cssLoaders({
     sourceMap: sourceMapEnabled,
     extract: isProduction
