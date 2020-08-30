@@ -45,6 +45,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+    
     export default {
         data () {
             return {
@@ -59,7 +60,28 @@
         },
         methods: {
             login(){
+                if (!this.loginForm.userName || !this.loginForm.password) {
+                    this.isTips = true
+                    this.errMsg = '用户名、密码不能为空'
+                }
+                this.$ajax.post('/user/login',{
+                    userName: this.loginForm.userName,
+                    password: this.loginForm.password
+                }).then(response => {
+                    let res = response.data
 
+                    if (res.status === '1') {
+                        this.$store.commit('SET_USERID', res.result.user._id)
+                        this.$store.commit('SET_USERNAME', res.result.user.info.username)
+                        this.$store.commit('SET_AVATAR', res.result.user.info.avatar)
+                        this.$store.commit('SET_ROLE', res.result.user.role)
+                        setCookie('sessionId', res.result.sessionId)
+                        this.$router.push('/admin')
+                    } else {
+                        this.isTips = true
+                        this.errMsg = '用户/密码错误,请重新输入'
+                    }
+                })
             },
             
         },
@@ -70,7 +92,7 @@
         position relative
         width 100%
         height 100vh
-        background: url(https://cdn.pixabay.com/photo/2020/07/20/12/49/milky-way-5422901_960_720.jpg) no-repeat center
+        background: url(/static/pexels-photo-267350.jpeg) no-repeat center
         background-size: cover
         .login-form
             position absolute

@@ -59,7 +59,7 @@ cookie: {
     maxAge: 24 * 3600 * 1000 * 7
 },
 store: new MongoStore({
-    url: dburl
+    url: 'mongodb://127.0.0.1:27017/social'
 }),
 resave: false,
 saveUninitialized: false
@@ -75,7 +75,7 @@ var index = require('./routes/index')
 var users = require('./routes/user/user')
 
 app.use('/', index)
-app.use('/user', users)
+app.use('/users', users)
 
 
   // catch 404 and forward to error handler
@@ -102,3 +102,4 @@ app.use(function(req, res, next) {
     const port = server.address().port
     console.log("server started! 访问地址为 http://%s:%s", host, port)
   });
+

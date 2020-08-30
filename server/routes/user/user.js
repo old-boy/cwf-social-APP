@@ -111,6 +111,7 @@ userRouter.route('/:id')
 //login
 userRouter.route('/login')
     .post((req,res,next) => {
+        console.log('login  ' + req)
         var userName = req.body.userName,
             password = req.body.password;
         User.findOne({'userName': userName})
