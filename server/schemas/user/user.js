@@ -3,7 +3,7 @@ const crypto = require('crypto') //验证 ，签名，加密
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
     userName:{
         unique: true,
         type: String
@@ -38,9 +38,9 @@ const UserSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'Follow'   //巳关注列表
     },
-    texts:{
+    articles:{
         type: ObjectId,
-        ref: 'UserText' //发表的文章
+        ref: 'Article' //发表的文章
     },
     videos:{
         type: ObjectId,

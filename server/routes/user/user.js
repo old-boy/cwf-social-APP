@@ -2,9 +2,9 @@ var express = require('express')
 var fs = require('fs')
 var path = require('path')
 var crypto = require('crypto')
-var { handleError } = require('./../public/handleError.js')
+var { handleError } = require('../../public/handleError.js')
 
-const User = require('./../models/user')
+const User = require('../../models/user/user')
 var userRouter = express.Router();
 
 //module.route 链式写法

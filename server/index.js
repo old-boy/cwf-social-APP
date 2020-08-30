@@ -72,7 +72,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //router
 var index = require('./routes/index')
-var users = require('./routes/user')
+var users = require('./routes/user/user')
 
 app.use('/', index)
 app.use('/user', users)
