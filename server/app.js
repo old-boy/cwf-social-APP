@@ -59,7 +59,7 @@ app.use(bodyParser.json())
       maxAge: 24 * 3600 * 1000 * 7
     },
     store: new MongoStore({
-      url: dburl
+      url: "mongodb://localhost:27017/social"
     }),
     resave: false,
     saveUninitialized: false

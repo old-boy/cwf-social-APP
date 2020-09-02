@@ -84,58 +84,151 @@ router.post('/add',(req,res) => {
 })
     
 
-//update    
-router.post('/:id',(req,res) => {
-    var _id = `${req.params.id}`;
-    User.findByIdAndUpdate({ _id }, req.body, (err, faq) => {
-        if (err) {
-            res.status(500).json({ message: err })
-        } else {
-            res.status(200).json({ message: "更新成功" })
-        }
-    })
+// 删除用户  signRequired, adminRole,
+router.delete('/del/:id',  (req, res, next) => {
+	const id = `${req.params.id}`;
+	User.deleteOne({ _id: id }).then((user) => {
+		// console.log(user)
+		if(user){
+			res.status(200).json({
+				status: '1',
+				msg: '删除用户成功',
+				result: ''
+			})
+		}else{
+			res.status(400).json({
+				status: '0',
+				msg: '用户不存在',
+				result: ''
+			})
+		}
+	})
 })
-router.delete('/:id',(req,res) => {
-    var _id = `${req.params.id}`;
-    User.findById({ _id }).then((user) => {
-        if (!user) {
-            res.status(400).json({ message: "faq 不存在" })
-        } else {
-            User.deleteOne({ _id }).then(faq => res.status(200).json({ message: "删除成功" })).catch(err => { console.log(err) })
-        }
-    })
-})    
 
-
-//login
-router.post('/login', (req, res, next) => {
-	var userName = req.body.userName,
-		password = req.body.password;
-
-	User.findOne({'userName': userName})
-		.exec()
-		.then((user) => {
-			if (user) {
-				user.comparePwd(password, (err, isMatch) => {
-					if (err) throw err
-					if (isMatch == true) {
-						req.session.user = user
+// 修改用户权限  signRequired, adminRole,
+router.post('/modify/role', (req, res, next) => {
+	let role = req.body.role
+	let id = req.body.id
+	User.findOne({ _id: id }, (err, user) => {
+		if (err) {
+			res.json({
+				status: '0',
+				msg: err.message,
+				result: ''
+			})
+		}
+		if (user) {
+			if (user.role >= 50) {
+				res.json({
+					status: '0',
+					msg: '权限不够，不能修改',
+					result: ''
+				})
+			} else {
+				user.role = role
+				user.save(err => {
+					if (err) {
 						res.json({
-							status: '1',
-							msg: '',
-							result: {
-								'user': user,
-								'sessionId': req.session.id
-							}
+							status: '0',
+							msg: err.message,
+							result: ''
 						})
 					} else {
 						res.json({
-							status: '0',
-							msg: 'password incorrect',
+							status: '1',
+							msg: '权限修改成功',
 							result: ''
 						})
 					}
 				})
+			}
+		} else {
+			res.json({
+				status: '0',
+				msg: '用户不存在',
+				result: ''
+			})
+		}
+	})
+})
+
+// 最高权限修改密码 signRequired, adminRole,
+router.post('/modify/psd', (req, res, next) => {
+	let pwd = req.body.password
+	let id = req.body.id
+	User.findOne({ _id: id }, (err, user) => {
+		if (user) {
+			console.log(user)
+			crypto.randomBytes(16, (err, buf) => {
+				let salt = buf.toString('hex')
+				user.pwdKey = salt
+				crypto.pbkdf2(pwd, salt, 4096, 16, 'sha1', (err, secret) => {
+					if (err) throw err
+					user.password = secret.toString('hex')
+					user.save(err => {
+						if (err) {
+							res.json({
+								status: '0',
+								msg: err.message,
+								result: ''
+							})
+						} else {
+							res.json({
+								status: '1',
+								msg: '修改密码成功',
+								result: ''
+							})
+						}
+					})
+				})
+			})
+		} else {
+			res.json({
+				status: '0',
+				msg: '用户不存在',
+				result: ''
+			})
+		}
+	})
+})
+
+// 登陆接口
+router.post('/login', (req, res, next) => {
+	var userName = req.body.userName,
+		password = req.body.password;
+    console.log('userParams   ' + req.body.userName)
+	User.find({ 'userName':userName })
+		.exec()
+		.then((user) => {
+			if (user) {
+                res.json({
+                    status: '1',
+                    msg: '',
+                    result: {
+                        'user': user,
+                        'sessionId': req.session.id
+                    }
+                })
+				// user.comparePwd(password, (err, isMatch) => {
+				// 	if (err) throw err
+				// 	if (isMatch == true) {
+				// 		req.session.user = user
+				// 		res.json({
+				// 			status: '1',
+				// 			msg: '',
+				// 			result: {
+				// 				'user': user,
+				// 				'sessionId': req.session.id
+				// 			}
+				// 		})
+				// 	} else {
+				// 		res.json({
+				// 			status: '0',
+				// 			msg: 'password incorrect',
+				// 			result: ''
+				// 		})
+				// 	}
+				// })
 			} else {
 				res.json({
 					status: '0',
@@ -146,16 +239,14 @@ router.post('/login', (req, res, next) => {
 		})
 })
 
-
-//loginout
-router.get('/logout',(req,res,next) => {
-    delete req.session.user
-    res.json({
-        status: '1',
-        msg: '用户已退出',
-        result: ''
-    })
+// 登出接口
+router.get('/logout', (req, res, next) => {
+	delete req.session.user
+	res.json({
+		status: '1',
+		msg: '用户已登出',
+		result: ''
+	})
 })
-
 
 module.exports = router;

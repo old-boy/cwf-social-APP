@@ -7,15 +7,19 @@ import store from './store'
 import axios from 'axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
+import { getCookie } from './util/cookies'
+// import api from '../axios/index';
+
 
 Vue.config.productionTip = false
 Vue.prototype.$ajax = axios
 Vue.use(ElementUI)
+// Vue.use(api)
 
 // router.beforeEach((to, from, next) => {
 //   let sessionId = getCookie('sessionId')
 //   if (to.path !== '/') {
-//     axios.post('/users/checklogin', {
+//     this.$ajax.post('/users/checklogin', {
 //         'sessionId': sessionId
 //     }).then(response => {
 //       let res = response.data
@@ -24,7 +28,6 @@ Vue.use(ElementUI)
 //           store.commit('SET_USERID', res.result._id)
 //           store.commit('SET_USERNAME', res.result.info.username)
 //           store.commit('SET_AVATAR', res.result.info.avatar)
-//           store.commit('SET_INFOID', res.result.info._id)
 //           store.commit('SET_ROLE', res.result.role)
 //         }
 //         next()

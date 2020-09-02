@@ -45,7 +45,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-    
+    import { setCookie } from '../util/cookies'
     export default {
         data () {
             return {
@@ -59,22 +59,21 @@
             }
         },
         methods: {
-            login(){
-                if (!this.loginForm.userName || !this.loginForm.password) {
+            login () {
+                if (!this.loginForm.account || !this.loginForm.password) {
                     this.isTips = true
                     this.errMsg = '用户名、密码不能为空'
                 }
-                this.$ajax.post('/user/login',{
+                this.$ajax.post('/users/login', {
                     userName: this.loginForm.userName,
                     password: this.loginForm.password
                 }).then(response => {
                     let res = response.data
-
+                    // console.log('login-info  ' + res)
                     if (res.status === '1') {
-                        this.$store.commit('SET_USERID', res.result.user._id)
-                        this.$store.commit('SET_USERNAME', res.result.user.info.username)
-                        this.$store.commit('SET_AVATAR', res.result.user.info.avatar)
-                        this.$store.commit('SET_ROLE', res.result.user.role)
+                        this.$store.commit('SET_USERID', res.result.user[0]._id)
+                        this.$store.commit('SET_USERNAME', res.result.user[0].userName)
+                        this.$store.commit('SET_ROLE', res.result.user[0].role)
                         setCookie('sessionId', res.result.sessionId)
                         this.$router.push('/admin')
                     } else {
@@ -82,8 +81,7 @@
                         this.errMsg = '用户/密码错误,请重新输入'
                     }
                 })
-            },
-            
+            }
         },
     }
 </script>

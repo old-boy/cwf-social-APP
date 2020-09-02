@@ -61,7 +61,7 @@ const UserSchema = new Schema({
 })
 
 
-UserSchema.pre('save',(next) => {
+UserSchema.pre('save', function(next) {
     if (this.isNew) {
         this.createAt = this.updateAt = Date.now()
 
@@ -87,7 +87,7 @@ UserSchema.pre('save',(next) => {
                 next()
             })
         })
-    }else{
+    } else {
         this.updateAt = Date.now()
         next()
     }
