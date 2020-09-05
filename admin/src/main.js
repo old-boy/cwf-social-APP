@@ -16,29 +16,29 @@ Vue.prototype.$ajax = axios
 Vue.use(ElementUI)
 // Vue.use(api)
 
-// router.beforeEach((to, from, next) => {
-//   let sessionId = getCookie('sessionId')
-//   if (to.path !== '/') {
-//     this.$ajax.post('/users/checklogin', {
-//         'sessionId': sessionId
-//     }).then(response => {
-//       let res = response.data
-//       if (res.status === '1') {
-//         if (!store.state.userId) {
-//           store.commit('SET_USERID', res.result._id)
-//           store.commit('SET_USERNAME', res.result.info.username)
-//           store.commit('SET_AVATAR', res.result.info.avatar)
-//           store.commit('SET_ROLE', res.result.role)
-//         }
-//         next()
-//       } else {
-//         next('/')
-//       }
-//     })
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  let sessionId = getCookie('sessionId')
+  if (to.path !== '/') {
+    this.$ajax.post('/users/checklogin', {
+        'sessionId': sessionId
+    }).then(response => {
+      let res = response.data
+      if (res.status === '1') {
+        if (!store.state.userId) {
+          store.commit('SET_USERID', res.result._id)
+          store.commit('SET_USERNAME', res.result.info.username)
+          store.commit('SET_AVATAR', res.result.info.avatar)
+          store.commit('SET_ROLE', res.result.role)
+        }
+        next()
+      } else {
+        next('/')
+      }
+    })
+  } else {
+    next()
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({
