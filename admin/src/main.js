@@ -27,9 +27,6 @@ Vue.config.productionTip = false
 //       if (res.status === '1') {
 //         if (!store.state.userId) {
 //           store.commit('SET_USERID', res.result._id)
-//           store.commit('SET_USERNAME', res.result.info.username)
-//           store.commit('SET_AVATAR', res.result.info.avatar)
-//           store.commit('SET_INFOID', res.result.info._id)
 //           store.commit('SET_ROLE', res.result.role)
 //         }
 //         next()

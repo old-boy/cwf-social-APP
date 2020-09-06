@@ -13,6 +13,11 @@ const dburl = "mongodb://localhost:27017/social";
 
 var index = require('./routes/index')
 var users = require('./routes/users/index')
+var usersInfo = require('./routes/users/userBaseInfo')
+var usersTag = require('./routes/users/userTag')
+var usersTitle = require('./routes/users/userTitle')
+var usersFollow = require('./routes/users/userFollow')
+
 
 var app = express();
 
@@ -82,6 +87,10 @@ app.use(cors())
 
 app.use('/', index)
 app.use('/api/users', users)
+app.use('/api/users', usersTag)
+app.use('/api/users', usersTitle)
+app.use('/api/users', usersFollow)
+app.use('/api/users', usersInfo)
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {

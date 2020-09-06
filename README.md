@@ -13,6 +13,17 @@
 - [x] 用户关注 / 相册 / 视频 / 主页 / 商品 / 粉丝 / 钱包 / 服务接口 
 - [x] 用户各种分类接口
 
+### 2.1.1 RESTful API
+- [x] /api/users/              查询所有用户
+- [x] /api/users/add           新增用户
+- [x] /api/users/del/:id       删除用户
+- [x] /api/users/tag           查询用户标签
+- [x] /api/users/tag/add       新增用户标签
+- [x] /api/users/tag/:id       删除用户标签
+- [x] /api/users/follow        查询被关注的用户
+- [x] /api/users/info/add/:id  根据用户id新增用户基本信息
+
+
 ### 2.2.后台管理系统
 - [x] 使用 Vue.js Element 搭建的后台管理系统
 

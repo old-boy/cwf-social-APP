@@ -239,6 +239,38 @@ router.post('/login', (req, res, next) => {
 		})
 })
 
+// 检测是否已经登陆
+router.post('/checklogin', (req, res, next) => {
+	let sessionId = req.body.sessionId
+	console.log('sessionId   ' + req.session.id)
+	if (req.session.id === sessionId) {
+		User.findOne({ _id: userId })
+			.exec()
+			.then((user) => {
+				if (user) {
+					req.session.user = user
+					res.json({
+						status: '1',
+						msg: '用户已登陆',
+						result: user
+					})
+				} else {
+					res.json({
+						status: '0',
+						msg: '用户不存在',
+						result: ''
+					})
+				}
+			})
+	} else {
+		res.json({
+			status: '0',
+			msg: '用户未登陆',
+			result: ''
+		})
+	}
+})
+
 // 登出接口
 router.get('/logout', (req, res, next) => {
 	delete req.session.user
