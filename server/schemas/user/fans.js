@@ -2,12 +2,16 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
-const userLikedSchema = new Schema({
-    user:{
-        type:ObjectId,  //被收藏的人
-        ref: 'user'
-    },
-    likedNum: Number,
+const fansSchema = new Schema({
+    fans:[
+        {
+            user:{
+                type:ObjectId,    //用户 id
+                ref: 'user'
+            }
+        }
+    ],
+    fansNum: Number,
     createAt: {
         type: Date,
         default: Date.now()
@@ -18,4 +22,6 @@ const userLikedSchema = new Schema({
     }
 })
 
-module.exports = userLikedSchema
+exports.default = {
+    fansSchema
+}

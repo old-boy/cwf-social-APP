@@ -19,48 +19,100 @@
               <el-submenu index="1">
                 <template slot="title">
                   <i class="el-icon-info"></i>
-                  <span>用户管理</span>
+                  <span>用户</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="1-1" route="/admin/userList"
-                    >员工管理</el-menu-item
+                  <el-menu-item index="1-1" route="/admin/user/list"
+                    >列表</el-menu-item
+                  >
+                </el-menu-item-group>
+                <el-menu-item-group>
+                  <el-menu-item index="1-2" route="/admin/user/info"
+                    >基本信息</el-menu-item
+                  >
+                </el-menu-item-group>
+                <el-menu-item-group>
+                  <el-menu-item index="1-3" route="/admin/user/tag"
+                    >标签</el-menu-item
+                  >
+                </el-menu-item-group>
+                <el-menu-item-group>
+                  <el-menu-item index="1-4" route="/admin/user/title"
+                    >级别</el-menu-item
+                  >
+                </el-menu-item-group>
+                <el-menu-item-group>
+                  <el-menu-item index="1-5" route="/admin/user/liked"
+                    >点赞</el-menu-item
+                  >
+                </el-menu-item-group>
+                <el-menu-item-group>
+                  <el-menu-item index="1-6" route="/admin/user/follow"
+                    >关注</el-menu-item
+                  >
+                </el-menu-item-group>
+                <el-menu-item-group>
+                  <el-menu-item index="1-7" route="/admin/user/comment"
+                    >评论</el-menu-item
+                  >
+                </el-menu-item-group>
+                <el-menu-item-group>
+                  <el-menu-item index="1-8" route="/admin/user/echart"
+                    >数据图表</el-menu-item
+                  >
+                </el-menu-item-group>
+                <el-menu-item-group>
+                  <el-menu-item index="1-9" route="/admin/user/aticle"
+                    >文章</el-menu-item
+                  >
+                </el-menu-item-group>
+                <el-menu-item-group>
+                  <el-menu-item index="1-10" route="/admin/user/photos"
+                    >相册</el-menu-item
+                  >
+                </el-menu-item-group>
+                <el-menu-item-group>
+                  <el-menu-item index="1-11" route="/admin/user/charm"
+                    >魅力</el-menu-item
+                  >
+                </el-menu-item-group>
+                <el-menu-item-group>
+                  <el-menu-item index="1-12" route="/admin/user/fans"
+                    >粉丝</el-menu-item
                   >
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="2">
                 <template slot="title">
                   <i class="el-icon-share"></i>
-                  <span>订单管理</span>
+                  <span>圈子</span>
                 </template>
                 
                 <el-menu-item-group>
-                  <template slot="title">订单</template>
+                  <template slot="title">热门</template>
                   <el-menu-item index="2-1" route="/order/list"
-                    >订单列表</el-menu-item
+                    >正文</el-menu-item
                   >
-                  <el-menu-item index="2-2" route="/order/tag"
-                    >订单标签</el-menu-item
-                  >
-                  <el-menu-item index="2-3" route="/product/list"
-                    >产品列表</el-menu-item
-                  >
+                  
+                  <template slot="title">同城</template>
+                  <template slot="title">榜单</template>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="3">
                 <template slot="title">
                   <i class="el-icon-star-on"></i>
-                  <span slot="title">客户管理</span>
+                  <span slot="title">我</span>
                 </template>
                 <el-menu-item-group>
-                  <template slot="title">分组</template>
+                  <template slot="title">基本信息</template>
                   <el-menu-item index="3-1" route="/client/list"
-                    >客户列表</el-menu-item
+                    >我的信息</el-menu-item
                   >
                   <el-menu-item index="3-2" route="/client/type"
-                    >客户类型</el-menu-item
+                    >我的粉丝</el-menu-item
                   >
                   <el-menu-item index="3-3" route="/client/pay"
-                    >汇款方式</el-menu-item
+                    >我的服务</el-menu-item
                   >
                 </el-menu-item-group>
               </el-submenu>

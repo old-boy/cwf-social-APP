@@ -21,7 +21,12 @@
 - [x] /api/users/tag/add       新增用户标签
 - [x] /api/users/tag/:id       删除用户标签
 - [x] /api/users/follow        查询被关注的用户
-- [x] /api/users/info/add/:id  根据用户id新增用户基本信息
+- [x] /api/users/fans          查询 or 新增粉丝
+- [x] /api/users/echart        查询 or 新增用户图表数据
+- [x] /api/users/follow        查询 or 新增用户关注
+- [x] /api/users/like          查询 or 新增用户收藏
+- [x] /api/users/article       查询 or 新增文章
+
 
 
 ### 2.2.后台管理系统

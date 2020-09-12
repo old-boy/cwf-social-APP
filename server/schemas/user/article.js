@@ -6,6 +6,10 @@ const userArticleSchema = new Schema({
     title:String,
     subTitle:String,
     text:String,
+    user:{
+        type: ObjectId,
+        ref: 'user' //用户id
+    },
     photo:{
         type: ObjectId,
         ref: 'PhotoBooklet' //用户相册

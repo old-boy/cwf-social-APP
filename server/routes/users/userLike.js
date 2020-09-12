@@ -1,11 +1,11 @@
 var express = require('express')
-var userFollowRouter = express.Router()
+var userLikeRouter = express.Router()
 
-var UserFollow = require('../../models/user/follow')
+var UserLike = require('../../models/user/liked')
 
-userFollowRouter.route('/users/follow')
+userLikeRouter.route('/users/follow')
     .get((req,res,next) => {
-        UserFollow.find()
+        UserLike.find()
                   .populate('user')
                   .exec()
                   .then((doc) => {
@@ -18,7 +18,7 @@ userFollowRouter.route('/users/follow')
                     } else {
                         res.json({
                             status: '0',
-                            msg: '没有关注用户',
+                            msg: '没有收藏用户',
                             result: ''
                         })
                     }
@@ -27,7 +27,7 @@ userFollowRouter.route('/users/follow')
 
     .post((req,res,next) => {
         var _id = `${req.params.id}`;
-        UserFollow.findById({_id}).then((doc) => {
+        UserLike.findById({_id}).then((doc) => {
             if(!doc){
                 res.status(400).json({ message: `${doc} 不存在` })
             }else{
@@ -43,4 +43,4 @@ userFollowRouter.route('/users/follow')
     })
 
 
-module.exports = UserFollow
+module.exports = userLikeRouter

@@ -7,6 +7,7 @@ const userFollowSchema = new Schema({
         type:ObjectId,  //被关注的人
         ref: 'user'
     },
+    followNum: Number,
     createAt: {
         type: Date,
         default: Date.now()
