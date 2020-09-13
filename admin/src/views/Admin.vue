@@ -23,75 +23,102 @@
                 </template>
                 <el-menu-item-group>
                   <el-menu-item index="1-1" route="/admin/user/list"
-                    >列表</el-menu-item
+                    >
+                    <i class="el-icon-document"></i>
+                    <sapn>列表</sapn>
+                    </el-menu-item
                   >
                 </el-menu-item-group>
                 <el-menu-item-group>
                   <el-menu-item index="1-2" route="/admin/user/info"
-                    >基本信息</el-menu-item
+                    >
+                    <i class="el-icon-set-up"></i><span>基本信息</span>
+                    </el-menu-item
                   >
                 </el-menu-item-group>
                 <el-menu-item-group>
                   <el-menu-item index="1-3" route="/admin/user/tag"
-                    >标签</el-menu-item
+                    >
+                    <i class="el-icon-price-tag"></i><span>标签</span>
+                    </el-menu-item
                   >
                 </el-menu-item-group>
                 <el-menu-item-group>
                   <el-menu-item index="1-4" route="/admin/user/title"
-                    >级别</el-menu-item
+                    >
+                    <i class="el-icon-medal-1"></i><span>级别</span>
+                    </el-menu-item
                   >
                 </el-menu-item-group>
                 <el-menu-item-group>
                   <el-menu-item index="1-5" route="/admin/user/liked"
-                    >点赞</el-menu-item
+                    >
+                    <i class="el-icon-thumb"></i><span>点赞</span>
+                    </el-menu-item
                   >
                 </el-menu-item-group>
                 <el-menu-item-group>
                   <el-menu-item index="1-6" route="/admin/user/follow"
-                    >关注</el-menu-item
+                    >
+                    <i class="el-icon-trophy"></i><span>关注</span>
+                    </el-menu-item
                   >
                 </el-menu-item-group>
                 <el-menu-item-group>
                   <el-menu-item index="1-7" route="/admin/user/comment"
-                    >评论</el-menu-item
+                    >
+                    <i class="el-icon-chat-line-round"></i><span>评论</span>
+                    </el-menu-item
                   >
                 </el-menu-item-group>
                 <el-menu-item-group>
                   <el-menu-item index="1-8" route="/admin/user/echart"
-                    >数据图表</el-menu-item
+                    >
+                    <i class="el-icon-pie-chart"></i><span>数据图表</span>
+                    </el-menu-item
                   >
                 </el-menu-item-group>
                 <el-menu-item-group>
                   <el-menu-item index="1-9" route="/admin/user/aticle"
-                    >文章</el-menu-item
+                    >
+                    <i class="el-icon-reading"></i><span>文章</span>
+                    </el-menu-item
                   >
                 </el-menu-item-group>
                 <el-menu-item-group>
                   <el-menu-item index="1-10" route="/admin/user/photos"
-                    >相册</el-menu-item
+                    >
+                    <i class="el-icon-picture-outline"></i><span>相册</span>
+                    </el-menu-item
                   >
                 </el-menu-item-group>
                 <el-menu-item-group>
                   <el-menu-item index="1-11" route="/admin/user/charm"
-                    >魅力</el-menu-item
+                    >
+                    <i class="el-icon-magic-stick"></i><span>魅力</span>
+                    </el-menu-item
                   >
                 </el-menu-item-group>
                 <el-menu-item-group>
                   <el-menu-item index="1-12" route="/admin/user/fans"
-                    >粉丝</el-menu-item
+                    >
+                    <i class="el-icon-mic"></i><span>粉丝</span>
+                    </el-menu-item
                   >
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="2">
                 <template slot="title">
-                  <i class="el-icon-share"></i>
+                  <i class="el-icon-bangzhu"></i>
                   <span>圈子</span>
                 </template>
                 
                 <el-menu-item-group>
                   <template slot="title">热门</template>
                   <el-menu-item index="2-1" route="/order/list"
-                    >正文</el-menu-item
+                    >
+                    <i class="el-icon-notebook-2"></i><span>正文</span>
+                    </el-menu-item
                   >
                   
                   <template slot="title">同城</template>
@@ -100,7 +127,7 @@
               </el-submenu>
               <el-submenu index="3">
                 <template slot="title">
-                  <i class="el-icon-star-on"></i>
+                  <i class="el-icon-user"></i>
                   <span slot="title">我</span>
                 </template>
                 <el-menu-item-group>

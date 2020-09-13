@@ -123,6 +123,7 @@
       <div slot="footer" class="dialog-footer">
           <el-button @click="modalChange">取 消</el-button>
           <el-button type="danger" @click="handleDelete">确 定</el-button>
+          <el-button type="danger" @click="handleDelete">确 定</el-button>
       </div>
     </modal>
     <modal :dialogFormVisible="userInfoModalFlag" @modalToggle="modalChange" :title="'查看员工信息'">
