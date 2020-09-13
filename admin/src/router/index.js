@@ -4,7 +4,7 @@ import Login from '@/views/Login'
 import Admin from '@/views/Admin'
 import Index from '@/views/Index'
 import UserList from '@/views/User/list'
-// import UserInfo from '@/views/User/UserInfo'
+import UserInfo from '@/views/User/info'
 // import Upload from '@/views/User/Upload'
 // import OrderList from '@/views/Order/OrderList'
 // import OrderTag from '@/views/Order/OrderTag'
@@ -28,7 +28,7 @@ export default new Router({
       path: '/admin',
       name: 'admin',
       component: Admin,
-      redirect: '/admin/userList',//登录成功后跳转的位置
+      redirect: '/admin/user/list',//登录成功后跳转的位置
       children: [
         {
           path: 'index',
@@ -36,9 +36,14 @@ export default new Router({
           component: Index
         },
         {
-          path: 'userList',
+          path: '/admin/user/list',
           name: 'userList',
           component: UserList
+        },
+        {
+          path: '/admin/user/info',
+          name: 'userInfo',
+          component: UserInfo
         },
         {
           path: '*',

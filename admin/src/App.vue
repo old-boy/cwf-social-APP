@@ -27,7 +27,7 @@ $c-ff:#fff;
         margin-bottom: 1em;
     }
     .el-main{
-      margin-top: 2em;
+      margin-top: 1em;
       padding-left: 0;
       padding-right: 0;
     }

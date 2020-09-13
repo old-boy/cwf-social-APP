@@ -1,5 +1,5 @@
 <template>
-    <div class="list">
+    <div class="user-info">
         <el-row class="source breadcrumb-header">
             <breadcrumb :breadcrumbName="breadcrumbName"></breadcrumb>
             <el-col :span="1" :offset="10">
@@ -11,13 +11,14 @@
             <el-header>
                 <div class="search-warp">
                     <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-                        <el-form-item label="用户名">
-                            <el-input v-model="searchForm.userName" placeholder="用户名"></el-input>
+                        <el-form-item label="性别">
+                            <el-input v-model="searchForm.gender" placeholder="性别"></el-input>
                         </el-form-item>
-                        <el-form-item label="用户角色">
-                            <el-select v-model="searchForm.role" placeholder="用户角色">
-                            <el-option label="美食家" value="50"></el-option>
-                            </el-select>
+                        <el-form-item label="星座">
+                            <el-input v-model="searchForm.constellation" placeholder="星座"></el-input>
+                        </el-form-item>
+                        <el-form-item label="公司">
+                            <el-input v-model="searchForm.company" placeholder="公司"></el-input>
                         </el-form-item>
                         <el-form-item>
                             <el-button type="primary" @click="query">查询</el-button>
@@ -41,62 +42,46 @@
                     width="55">
                     </el-table-column>
                     <el-table-column
-                        prop="userName"
-                        label="用户名"
+                        prop="gender"
+                        label="性别"
                     >
                     </el-table-column>
                     <el-table-column
-                        prop="avatar"
-                        label="头像"
+                        prop="age"
+                        label="年龄"
                     ></el-table-column>
                     <el-table-column
-                        prop="role"
-                        label="角色"
+                        prop="constellation"
+                        label="星座"
                     >
                     </el-table-column>
                     <el-table-column
-                        prop="userFans"
-                        label="粉丝"
+                        prop="area"
+                        label="地区"
                     >
                     </el-table-column>
                     <el-table-column
-                        prop="follow"
-                        label="关注"
+                        prop="company"
+                        label="公司"
                     >
                     </el-table-column>
                     <el-table-column
-                        prop="tags"
-                        label="标签"
+                        prop="feelingStatus"
+                        label="感情状态"
                     >
                     </el-table-column>
                     <el-table-column
-                        prop="title"
-                        label="称号"
+                        prop="registrationDate"
+                        label="注册时间"
                     >
                     </el-table-column>
-                    <el-table-column
-                        prop="charm"
-                        label="魅力值"
-                    >
-                    </el-table-column>
-                    <el-table-column
-                        prop="articles"
-                        label="文章数量"
-                    >
-                    </el-table-column>
-                    <el-table-column
-                        prop="videos"
-                        label="视频数量"
-                    >
-                    </el-table-column>
+                    
                     <el-table-column
                         label="操作"
                         width="400"
                     >
                         <template slot-scope="scope">
-                        <el-button type="primary" size="mini"  @click="showInfoModal(scope.$index, scope.row)">员工资料</el-button>
-                        <el-button type="info" size="mini"  @click="showPwdModal(scope.$index, scope.row)">重设密码</el-button>
-                        <el-button type="warning" size="mini"  @click="showRoleModal(scope.$index, scope.row)">权限设置</el-button>
+                        <el-button type="primary" size="mini"  @click="showInfoModal(scope.$index, scope.row)">修改</el-button>
                         <el-button type="danger" size="mini" @click="showRemoveModal(scope.$index, scope.row)">删除</el-button>
                         </template>
                     </el-table-column>
@@ -104,40 +89,44 @@
                     
             </el-main>
         </el-container>
-        
-
-        <!-- add -->
-        <addDialog ref="addDialog" :rowdata="rowdata" @userData="userData"/>
+        <addInfoDialog ref="addInfoDialog" @saveUserInfo="addSaveInfo" /> 
     </div>
 </template>
 <script>
 import breadcrumb from '../components/breadcrumb'
-import addDialog from './components/dialog/addUser'
-
+import addInfoDialog from './components/dialog/addInfo'
 export default {
-    name:'userList',
-    components: {
+    name:'userInfo',
+    components:{
         breadcrumb,
-        addDialog
+        addInfoDialog
     },
     data() {
         return {
-            breadcrumbName:'用户列表',
-            rowdata:[],
-            tableData:[],
-            searchForm: {
-                userName: '',
-                role: '',
-            },
             loadingFlag: false,
-            
+            breadcrumbName:'用户基本信息',
+            tableData:[],
+            searchForm:{
+                gender:'',
+                constellation:'',
+                company:''
+            }
         }
     },
     methods: {
-        Add(){
-            this.$refs.addDialog.Adduser()
+        handleSelectionChange(){
+
         },
-        userData(){
+        showInfoModal(){
+
+        },
+        showRemoveModal(){
+
+        },
+        Add(){
+            this.$refs.addInfoDialog.AddInfo()
+        },
+        addSaveInfo(){
 
         },
         query(){
@@ -145,21 +134,6 @@ export default {
         },
         reset(){
             this.searchForm = {}
-        },
-        showInfoModal(){
-
-        },
-        showPwdModal(){
-
-        },
-        showRoleModal(){
-
-        },
-        showRemoveModal(){
-
-        },
-        handleSelectionChange(){
-
         }
     },
 }
