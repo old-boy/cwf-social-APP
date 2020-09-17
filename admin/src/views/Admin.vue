@@ -25,7 +25,7 @@
                   <el-menu-item index="1-1" route="/admin/user/list"
                     >
                     <i class="el-icon-document"></i>
-                    <sapn>列表</sapn>
+                    <span>列表</span>
                     </el-menu-item
                   >
                 </el-menu-item-group>

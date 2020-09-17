@@ -10,7 +10,8 @@ const state = {
     role: '',
     infoId: '',
     avatarUrl: '',
-    typeId:''
+    typeId:'',
+    loginSuccess:''
 }
 
 export default new Vuex.Store({

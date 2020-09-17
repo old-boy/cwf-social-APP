@@ -46,6 +46,7 @@
 
 <script type="text/ecmascript-6">
     import { setCookie } from '../util/cookies'
+    import {apiLogin}  from '../request/api'
     export default {
         data () {
             return {
@@ -64,11 +65,11 @@
                     this.isTips = true
                     this.errMsg = '用户名、密码不能为空'
                 }
-                this.$ajax.post('/users/login', {
+                apiLogin({
                     username: this.loginForm.username,
                     password: this.loginForm.password
                 }).then(response => {
-                    let res = response.data
+                    let res = response
                     // console.log('login-info  ' + res)
                     if (res.status === '1') {
                         this.$store.commit('SET_USERID', res.result.user._id)
