@@ -205,6 +205,8 @@
 <script type="text/ecmascript-6">
 import { mapState, mapGetters } from 'vuex'
 import { delCookie } from '../util/cookies'
+import { apiLoginOut } from '../request/api'
+
 export default {
     data () {
         return {
@@ -227,18 +229,18 @@ export default {
       loginOut(command){
         console.log('command  ' + command)
           if(command === '3'){
-              this.$ajax.get('/users/logout').then(res => {
-                    if (res.data.status === '1') {
-                        console.log(res.data.status)
-                        this.$store.commit('SET_USERID', '')
-                        this.$store.commit('SET_USERNAME', '')
-                        this.$store.commit('SET_AVATAR', '')
-                        this.$store.commit('SET_INFOID', '')
-                        this.$store.commit('SET_ROLE', '')
-                        delCookie('sessionId')
-                        this.$router.push('/')
-                    }
-                })
+            apiLoginOut().then(res => {
+                if (res.status === '1') {
+                    console.log(res.status)
+                    this.$store.commit('SET_USERID', '')
+                    this.$store.commit('SET_USERNAME', '')
+                    this.$store.commit('SET_AVATAR', '')
+                    this.$store.commit('SET_INFOID', '')
+                    this.$store.commit('SET_ROLE', '')
+                    delCookie('sessionId')
+                    this.$router.push('/')
+                }
+            })
           }
       },
       handleOpen (key, keyPath) {
@@ -251,19 +253,18 @@ export default {
             if (command === '1') {
                 this.$router.push(`/admin/userInfo/${this.infoId}`)
             } else if (command === '3') {
-                this.$ajax.get('/users/logout').then(res => {
-                    console.log(res)
-                    if (res.data.status === '1') {
-                        console.log(res.data.status)
-                        this.$store.commit('SET_USERID', '')
-                        this.$store.commit('SET_USERNAME', '')
-                        this.$store.commit('SET_AVATAR', '')
-                        this.$store.commit('SET_INFOID', '')
-                        this.$store.commit('SET_ROLE', '')
-                        delCookie('sessionId')
-                        this.$router.push('/')
-                    }
-                })
+                apiLoginOut().then(res => {
+                if (res.status === '1') {
+                    console.log(res.status)
+                    this.$store.commit('SET_USERID', '')
+                    this.$store.commit('SET_USERNAME', '')
+                    this.$store.commit('SET_AVATAR', '')
+                    this.$store.commit('SET_INFOID', '')
+                    this.$store.commit('SET_ROLE', '')
+                    delCookie('sessionId')
+                    this.$router.push('/')
+                }
+            })
             }
       }
     },

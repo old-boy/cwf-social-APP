@@ -73,6 +73,8 @@
     </div>
 </template>
 <script>
+import {apiUserGetTag} from '@/request/api'
+
 export default {
     name:'addDialog',
     props:{
@@ -108,6 +110,8 @@ export default {
         Adduser() {
             this.centerDialogVisible = true
             this.dialogtitle = '增加人员'
+
+
             // this.isAdd = true
             // this.userform = {
             //     userid: '',
@@ -134,6 +138,12 @@ export default {
         save(){
             this.centerDialogVisible = false;
             this.$emit('userData');
+        },
+        getTag(){
+            apiUserGetTag().then(response => {
+                this.userform.tags = response.result
+
+            })
         }
     },
 }

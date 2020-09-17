@@ -59,6 +59,8 @@
 <script>
 import breadcrumb from '../components/breadcrumb'
 import addTagDialog from './components/dialog/addTag'
+import { apiUserGetTag } from '@/request/api'
+
 export default {
     name:'userInfo',
     components:{
@@ -75,7 +77,15 @@ export default {
             }
         }
     },
+    created() {
+        this.getData()
+    },
     methods: {
+        getData(){
+            apiUserGetTag().then(response => {
+                this.tableData = response.result
+            })
+        },
         handleSelectionChange(){
 
         },

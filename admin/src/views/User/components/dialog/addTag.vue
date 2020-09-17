@@ -25,10 +25,14 @@
     </div>
 </template>
 <script>
+import { apiUserAddTag } from '@/request/api'
+
+
 export default {
     name:'userTag',
     data() {
         return {
+            isAdd: true,
             centerDialogVisible: false,
             showClo:false,
             dialogtitle:'',
@@ -45,7 +49,18 @@ export default {
         },
         save(){
             this.centerDialogVisible = false
-            this.$emit('saveUserTag')
+
+            let action = ''
+            if(this.isAdd){
+                apiUserAddTag({
+                    tagName: this.userTagform.tagName
+                }).then(response => {
+                    this.$emit('saveUserTag')
+                    this.$parent.getData()
+                })
+            }else{
+                //更新接口
+            }
         }
     },
 }
