@@ -17,6 +17,7 @@ var usersInfo = require('./routes/users/userBaseInfo')
 var usersTag = require('./routes/users/userTag')
 var usersTitle = require('./routes/users/userTitle')
 var usersFollow = require('./routes/users/userFollow')
+var usersRole = require('./routes/users/userRole')
 
 
 var app = express();
@@ -89,8 +90,10 @@ app.use('/', index)
 app.use('/api/users', users)
 app.use('/api/users', usersTag)
 app.use('/api/users', usersTitle)
-app.use('/api/users', usersFollow)
+app.use('/api/users', usersTitle)
 app.use('/api/users', usersInfo)
+app.use('/api/users', usersFollow)
+app.use('/api/users', usersRole)
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {

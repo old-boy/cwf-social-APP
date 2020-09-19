@@ -51,7 +51,7 @@
                     >
                         <template slot-scope="scope">
                         <el-button type="primary" size="mini"  @click="showInfoModal(scope.$index, scope.row)">修改</el-button>
-                        <el-button type="danger" size="mini" @click="showRemoveModal(scope.$index, scope.row)">删除</el-button>
+                        <el-button type="danger" size="mini" @click="handleDel(scope.$index, scope.row)">删除</el-button>
                         </template>
                     </el-table-column>
                     </el-table>
@@ -64,6 +64,9 @@
 <script>
 import breadcrumb from '../components/breadcrumb'
 import addTitleDialog from './components/dialog/addTitle'
+import {apiUserGetTitle,apiUserDelTitle} from '@/request/api'
+
+
 export default {
     name:'userTitle',
     components:{
@@ -72,6 +75,7 @@ export default {
     },
     data() {
         return {
+            titleId: '',
             loadingFlag: false,
             breadcrumbName:'用户级别',
             tableData:[],
@@ -80,6 +84,9 @@ export default {
             }
         }
     },
+    created() {
+        this.getData()
+    },
     methods: {
         handleSelectionChange(){
 
@@ -87,12 +94,35 @@ export default {
         showInfoModal(){
 
         },
-        showRemoveModal(){
-
+        handleDel(index,row){
+            this.titleId = row._id
+            // console.log('del   ' + this.titleId)
+            this.$confirm('是否确认要删除?', '提示',{
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                apiUserDelTitle({
+                    id:this.titleId
+                }).then((res) => {
+                    console.log(res)
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    })
+                }).catch(err => {
+                    console.log(err)
+                })
+            })
         },
         Add(){
             //调用子组件中打开 dialog 的方法
             this.$refs.addTitleDialog.OpenTitle()
+        },
+        getData(){
+            apiUserGetTitle().then(res => {
+                this.tableData = res.result
+            })
         },
         addSaveTitle(){
 

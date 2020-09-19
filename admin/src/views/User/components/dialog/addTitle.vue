@@ -25,10 +25,12 @@
     </div>
 </template>
 <script>
+import {apiUserAddTitle} from '@/request/api'
 export default {
     name:'userTag',
     data() {
         return {
+            isAdd:true,
             centerDialogVisible: false,
             showClo:false,
             dialogtitle:'',
@@ -44,8 +46,18 @@ export default {
             this.dialogtitle = '增加用户级别'
         },
         save(){
-            this.centerDialogVisible = false
-            this.$emit('saveUserTitile')
+           this.centerDialogVisible = false
+
+           if(this.isAdd){
+               apiUserAddTitle({
+                   titleName:this.userTitleform.titleName
+               }).then(res => {
+                    this.$emit('saveUserTitile')
+                    this.$parent.getData()
+               }).catch(err => {
+                   console.log(err)
+               })
+           }
         }
     },
 }

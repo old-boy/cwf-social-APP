@@ -45,6 +45,7 @@ userTitleRouter.route('/title/add')
 userTitleRouter.route('/title/:id')
 .delete((req, res) => {
     var _id = `${req.params.id}`;
+    console.log(_id)
     UserTitle.findById({ _id }).then((doc) => {
         if (!doc) {
             res.status(400).json({ message: `${doc} 不存在` })
@@ -54,4 +55,4 @@ userTitleRouter.route('/title/:id')
     })
 })
 
-module.exports = UserTitle
+module.exports = userTitleRouter

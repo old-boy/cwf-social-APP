@@ -54,4 +54,4 @@ userBaseInfoRouter.route('/info/add/:id')
     })
 
 
-module.exports = UserBaseInfo
+module.exports = userBaseInfoRouter

@@ -43,4 +43,4 @@ userFollowRouter.route('/users/follow')
     })
 
 
-module.exports = UserFollow
+module.exports = userFollowRouter

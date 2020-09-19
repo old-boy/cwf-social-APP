@@ -111,29 +111,6 @@ export default {
             this.centerDialogVisible = true
             this.dialogtitle = '增加人员'
 
-
-            // this.isAdd = true
-            // this.userform = {
-            //     userid: '',
-            //     UserCode: '',
-            //     Name: '',
-            //     Cardnum: '',
-            //     Pwd: '',
-            //     Deptid: null,
-            //     Groupid: null,
-            //     UserFlag: null,
-            //     admingroupid: null,
-            //     IsAtt: 1,
-            //     Isovertime: 1,
-            //     Isrest: 1,
-            //     ClassFlag: 1,
-            //     Sex: '',
-            //     Duty: '',
-            //     Mobile: '',
-            //     Address: '',
-            //     Birthday: '',
-            //     EmployDate: ''
-            // }
         },
         save(){
             this.centerDialogVisible = false;
