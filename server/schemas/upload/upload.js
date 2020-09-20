@@ -7,6 +7,7 @@ const uploadSchema = new Schema({
     size: Number,
     type:String,
     uid: Number,
+    fileConfig:String,
     createAt: {
         type: Date,
         default: Date.now()

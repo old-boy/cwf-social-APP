@@ -39,7 +39,7 @@ export default {
     data() {
         return {
             isAdd:true,
-            fileList:[],
+            fileData:{},
             centerDialogVisible: false,
             showClo:false,
             dialogtitle:'',
@@ -62,10 +62,17 @@ export default {
         },
         save(){
            this.centerDialogVisible = false
-
+           let filename = this.fileData.name
+           let size = this.fileData.size
+           let type = this.fileData.type
+           let uid = this.fileData.uid
            if(this.isAdd){
                apiUserAddTitle({
-                   titleName:this.userTitleform.titleName
+                   titleName:this.userTitleform.titleName,
+                    filename,
+                    size,
+                    type,
+                    uid
                }).then(res => {
                     this.$emit('saveUserTitile')
                     this.$parent.getData()
@@ -74,8 +81,9 @@ export default {
                })
            }
         },
-        uploadIcons(){
-            
+        uploadIcons(file){
+            console.log('upload-files   ' + JSON.stringify(file))
+            this.fileData = file
         }
     },
 }

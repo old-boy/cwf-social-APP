@@ -36,7 +36,7 @@
                     width="55">
                     </el-table-column>
                     <el-table-column
-                        prop="titleIcon"
+                        prop="filename"
                         label="级别icon"
                     >
                     </el-table-column>

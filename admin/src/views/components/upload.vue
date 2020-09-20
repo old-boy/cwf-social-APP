@@ -3,11 +3,10 @@
         <el-upload
             class="upload-demo"
             ref="upload"
-            :action="domain"
+            action="https://jsonplaceholder.typicode.com/posts/"
             :http-request="uploadRequest"
             :file-list="fileList"
-            :list-type="picture"
-            multiple>
+            :list-type="picture">
             <el-button size="small" type="primary" @click="uploadFile">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
@@ -21,6 +20,8 @@ export default {
         return {
             file:{},
             fileList:[],
+            fileConfig:'',
+            fileData:{},
             domain:'',
             picture:''
         }
@@ -35,27 +36,30 @@ export default {
         handlePreview(file) {
             console.log(file);
         },
-        uploadFile(){
-
-            const fileData = new FormData()
-            const fileConfig = { headers: { 'Content-Type': 'multipart/form-data' }}
-
-            fileData.append('filename',this.file)
-
-            apiUpload({
-                fileData,
-                fileConfig
-            }).then(res => {
-                this.$emit('uploadFile')
-            }).catch(err => {
-                console.log(err)
-            })
-            
-        },
+       
         uploadRequest(item){
-            console.log(item.file)
+            // console.log(item.file)
             this.file = item.file
-        }
+        },
+         uploadFile(){
+            let name = this.file.name
+            let size = this.file.size
+            let type = this.file.type
+            let uid = this.file.uid
+
+            this.fileData = {
+                name,
+                size,
+                type,
+                uid
+            }
+            apiUpload({
+                file:this.file
+            }).then(res => {
+                console.log(res)
+                this.$emit('uploadFile', this.fileData)
+            })
+        },
     },
 }
 </script>

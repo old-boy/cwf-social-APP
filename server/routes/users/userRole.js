@@ -6,7 +6,7 @@ var UserRole = require('../../models/user/role')
 userRoleRouter.route('/users/role')
     .get((req,res,next) => {
         UserRole.find()
-            .exec()
+        .exec((err, doc) => {
             if (doc) {
                 res.json({
                     status: '1',
@@ -16,10 +16,11 @@ userRoleRouter.route('/users/role')
             } else {
                 res.json({
                     status: '0',
-                    msg: '没有数据',
+                    msg: '数据不存在',
                     result: ''
                 })
             }
+        })
     })
 
 userRoleRouter.route('/users/role/add')

@@ -7,6 +7,7 @@ import UserList from '@/views/User/list'
 import UserInfo from '@/views/User/info'
 import UserTag from '@/views/User/tag'
 import UserTitle from '@/views/User/title'
+import UserRole from '@/views/User/role'
 
 
 Vue.use(Router)
@@ -48,6 +49,11 @@ export default new Router({
           path: '/admin/user/title',
           name: 'userTitle',
           component: UserTitle
+        },
+        {
+          path:'/admin/user/role',
+          name:'userRole',
+          component:UserRole
         },
         {
           path: '*',
