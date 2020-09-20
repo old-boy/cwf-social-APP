@@ -3,7 +3,7 @@ var userRoleRouter = express.Router()
 
 var UserRole = require('../../models/user/role')
 
-userRoleRouter.route('/users/role')
+userRoleRouter.route('/role')
     .get((req,res,next) => {
         UserRole.find()
         .exec((err, doc) => {
@@ -23,7 +23,7 @@ userRoleRouter.route('/users/role')
         })
     })
 
-userRoleRouter.route('/users/role/add')
+userRoleRouter.route('/role/add')
     .post((req,res,next) => {
         UserRole.findOne({roleName:req.body.roleName}).then((doc) => {
             if(doc){
