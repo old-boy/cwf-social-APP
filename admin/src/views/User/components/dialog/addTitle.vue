@@ -14,7 +14,18 @@
             </div>
             <el-form :model="userTitleform" :label-width="formLabelWidth">
                 <el-form-item label="选择icon">
-                    <uploadIcon @uploadFile="uploadIcons"></uploadIcon>
+                    <ele-upload-image
+                        :fileSize="0.1"
+                        :isShowTip="false"
+                        :lazy="true"
+                        :responseFn="handleResponse"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        title="单张图片"
+                        v-model="userTitleform.image"
+                        :httpRequest="upload"
+                        class="upload-btn"
+                        >
+                    </ele-upload-image>
                 </el-form-item>
                 
                 <el-form-item label="用户级别">
@@ -29,12 +40,12 @@
     </div>
 </template>
 <script>
-import {apiUserAddTitle} from '@/request/api'
-import uploadIcon from '@/views/components/upload'
+import {apiUserAddTitle,apiUpload} from '@/request/api'
+import EleUploadImage from "vue-ele-upload-image";
 export default {
     name:'userTag',
     components:{
-        uploadIcon
+        EleUploadImage
     },
     data() {
         return {
@@ -44,8 +55,10 @@ export default {
             showClo:false,
             dialogtitle:'',
             userTitleform: {
-                titleName:''
+                titleName:'',
+                image:''
             },
+            image: "",
             formLabelWidth: '120px'
         }
     },
@@ -59,6 +72,11 @@ export default {
         },
         handleRemove(){
 
+        },
+        handleResponse (response, file, fileList) {
+            // return file.url
+            this.image = file.url
+            console.log('imageUrl  ' + JSON.stringify(this.image))
         },
         save(){
            this.centerDialogVisible = false
@@ -81,10 +99,18 @@ export default {
                })
            }
         },
-        uploadIcons(file){
-            console.log('upload-files   ' + JSON.stringify(file))
-            this.fileData = file
+        upload(){
+            apiUpload({
+                file: this.image
+            }).then(response => {
+                console.log(response)
+            })
         }
     },
 }
 </script>
+<style lang="scss" scope>
+    .upload-btn{
+
+    }
+</style>

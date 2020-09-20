@@ -3,11 +3,7 @@ const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
 const uploadSchema = new Schema({
-    filename:String,
-    size: Number,
-    type:String,
-    uid: Number,
-    fileConfig:String,
+    file:Object,
     createAt: {
         type: Date,
         default: Date.now()

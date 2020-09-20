@@ -19,7 +19,7 @@ var usersTitle = require('./routes/users/userTitle')
 var usersFollow = require('./routes/users/userFollow')
 var usersRole = require('./routes/users/userRole')
 
-var uploadFile = require('./routes/upload/index')
+var upload = require('./routes/upload/index')
 
 
 var app = express();
@@ -97,7 +97,7 @@ app.use('/api/users', usersInfo)
 app.use('/api/users', usersFollow)
 app.use('/api/users', usersRole)
 
-app.use('/api/upload',uploadFile)
+app.use('/api/users/upload',upload)
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
