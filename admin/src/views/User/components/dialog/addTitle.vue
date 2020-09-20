@@ -13,6 +13,10 @@
                 </button>
             </div>
             <el-form :model="userTitleform" :label-width="formLabelWidth">
+                <el-form-item label="选择icon">
+                    <uploadIcon @uploadFile="uploadIcons"></uploadIcon>
+                </el-form-item>
+                
                 <el-form-item label="用户级别">
                     <el-input v-model="userTitleform.titleName" autocomplete="on"></el-input>
                 </el-form-item>
@@ -26,11 +30,16 @@
 </template>
 <script>
 import {apiUserAddTitle} from '@/request/api'
+import uploadIcon from '@/views/components/upload'
 export default {
     name:'userTag',
+    components:{
+        uploadIcon
+    },
     data() {
         return {
             isAdd:true,
+            fileList:[],
             centerDialogVisible: false,
             showClo:false,
             dialogtitle:'',
@@ -45,6 +54,12 @@ export default {
             this.centerDialogVisible = true
             this.dialogtitle = '增加用户级别'
         },
+        handlePreview(){
+
+        },
+        handleRemove(){
+
+        },
         save(){
            this.centerDialogVisible = false
 
@@ -58,6 +73,9 @@ export default {
                    console.log(err)
                })
            }
+        },
+        uploadIcons(){
+            
         }
     },
 }

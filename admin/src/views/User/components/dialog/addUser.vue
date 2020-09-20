@@ -32,8 +32,13 @@
                 </el-form-item>
                 <el-form-item label="角色">
                     <el-select v-model="userform.role" placeholder="请选择用户角色">
-                        <el-option label="美食家" value="50"></el-option>
-                        <el-option label="游客" value="1"></el-option>
+                        <el-option
+                        v-for="item in roleList"
+                        :key="item._id"
+                        :label="item.roleName"
+                        :value="item._id"
+                        >
+                        </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="粉丝数量">
@@ -44,17 +49,32 @@
                 </el-form-item>
                 <el-form-item label="用户标签">
                     <el-select v-model="userform.tags" placeholder="请选择用户标签">
-                        <el-option label="来自iphone 11" value="iphone"></el-option>
+                        <el-option 
+                            v-for="item in tagList"
+                            :key="item._id"
+                            :label="item.tagName" 
+                            :value="item._id"
+                            >
+                        </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="用户称号">
                     <el-select v-model="userform.title" placeholder="请选择用户称号">
-                        <el-option label="VIP" value="vip"></el-option>
+                        <el-option 
+                        v-for="item in titleList"
+                        :key="item._id"
+                        :label="item.titleName" 
+                        :value="item._id"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="用户魅力级别">
                     <el-select v-model="userform.charm" placeholder="请选择用户魅力值">
-                        <el-option label="高级" value="sex"></el-option>
+                        <el-option 
+                        v-for="item in charmList"
+                        :key="item._id"
+                        :label="item.reward" 
+                        :value="item._id">
+                        </el-option>
                     </el-select>
                 </el-form-item>
            
@@ -73,7 +93,13 @@
     </div>
 </template>
 <script>
-import {apiUserGetTag} from '@/request/api'
+
+import {
+    apiUserGetTag,
+    apiUserAdd,
+    apiUserGetRole,
+    apiUserGetTitle
+} from '@/request/api'
 
 export default {
     name:'addDialog',
@@ -84,6 +110,10 @@ export default {
     },
     data() {
         return {
+            roleList:[],
+            tagList:[],
+            titleList:[],
+            charmList:[],
             centerDialogVisible: false,
             showClo:false,
             dialogtitle:'增加用户',
@@ -105,6 +135,11 @@ export default {
             formLabelWidth: '120px'
         }
     },
+    created() {
+        this.getRole()
+        this.getTag()
+        this.getTitle()
+    },
     methods: {
         // 添加用户
         Adduser() {
@@ -112,16 +147,32 @@ export default {
             this.dialogtitle = '增加人员'
 
         },
-        save(){
-            this.centerDialogVisible = false;
-            this.$emit('userData');
+        getRole(){
+            apiUserGetRole().then(res => {
+                this.roleList = res.result
+            })
         },
         getTag(){
-            apiUserGetTag().then(response => {
-                this.userform.tags = response.result
-
+            apiUserGetTag().then(res => {
+                this.tagList = res.result
             })
-        }
+        },
+        getTitle(){
+            apiUserGetTitle().then(res => {
+                this.titleList = res.result
+            })
+        },
+        getCharm(){
+
+        },
+        save(){
+            this.centerDialogVisible = false;
+            // apiUserAdd({
+
+            // })
+
+            this.$emit('userData');
+        },
     },
 }
 </script>

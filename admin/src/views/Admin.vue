@@ -37,6 +37,13 @@
                   >
                 </el-menu-item-group>
                 <el-menu-item-group>
+                  <el-menu-item index="1-3" route="/admin/user/role"
+                    >
+                    <i class="el-icon-price-tag"></i><span>角色</span>
+                    </el-menu-item
+                  >
+                </el-menu-item-group>
+                <el-menu-item-group>
                   <el-menu-item index="1-3" route="/admin/user/tag"
                     >
                     <i class="el-icon-price-tag"></i><span>标签</span>

@@ -94,9 +94,8 @@
                         width="400"
                     >
                         <template slot-scope="scope">
-                        <el-button type="primary" size="mini"  @click="showInfoModal(scope.$index, scope.row)">员工资料</el-button>
-                        <el-button type="info" size="mini"  @click="showPwdModal(scope.$index, scope.row)">重设密码</el-button>
-                        <el-button type="warning" size="mini"  @click="showRoleModal(scope.$index, scope.row)">权限设置</el-button>
+                        <el-button type="primary" size="mini"  @click="showInfoModal(scope.$index, scope.row)">基本信息</el-button>
+                        <el-button type="info" size="mini"  @click="showPwdModal(scope.$index, scope.row)">修改</el-button>
                         <el-button type="danger" size="mini" @click="showRemoveModal(scope.$index, scope.row)">删除</el-button>
                         </template>
                     </el-table-column>
