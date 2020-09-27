@@ -14,18 +14,18 @@
             </div>
             <el-form :model="userTitleform" :label-width="formLabelWidth">
                 <el-form-item label="选择icon">
-                    <ele-upload-image
-                        :fileSize="0.1"
-                        :isShowTip="false"
-                        :lazy="true"
-                        :responseFn="handleResponse"
-                        action="https://jsonplaceholder.typicode.com/posts/"
-                        title="单张图片"
-                        v-model="userTitleform.image"
-                        :httpRequest="upload"
-                        class="upload-btn"
-                        >
-                    </ele-upload-image>
+                    <el-upload
+                        class="upload-demo"
+                        action=""
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :on-change="handleChange"
+                        :file-list="fileList"
+                        :http-request="uploadObj"
+                        list-type="picture">
+                        <el-button size="small" type="primary">点击上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                    </el-upload>
                 </el-form-item>
                 
                 <el-form-item label="用户级别">
@@ -41,12 +41,8 @@
 </template>
 <script>
 import {apiUserAddTitle,apiUpload} from '@/request/api'
-import EleUploadImage from "vue-ele-upload-image";
 export default {
     name:'userTag',
-    components:{
-        EleUploadImage
-    },
     data() {
         return {
             isAdd:true,
@@ -58,7 +54,8 @@ export default {
                 titleName:'',
                 image:''
             },
-            image: "",
+            fileList:[],
+            image1: "",
             formLabelWidth: '120px'
         }
     },
@@ -73,10 +70,34 @@ export default {
         handleRemove(){
 
         },
+        handleChange(file, fileList){
+            console.log(file)
+            this.fileList = fileList
+        },
+        handleRemove(file, fileList) {
+            
+        },
+        handlePreview(file) {
+            
+        },
+        uploadObj(){
+            apiUpload({
+                file: this.fileList
+            }).then(response => {
+                console.log('uploadResponse   ' + response)
+            })
+        },
+        handleExceed(files, fileList) {
+            this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        },
+        beforeRemove(file, fileList) {
+            return this.$confirm(`确定移除 ${ file.name }？`);
+        },
         handleResponse (response, file, fileList) {
             // return file.url
             this.image = file.url
             console.log('imageUrl  ' + JSON.stringify(this.image))
+            return file.url
         },
         save(){
            this.centerDialogVisible = false
@@ -86,11 +107,7 @@ export default {
            let uid = this.fileData.uid
            if(this.isAdd){
                apiUserAddTitle({
-                   titleName:this.userTitleform.titleName,
-                    filename,
-                    size,
-                    type,
-                    uid
+                   titleName:this.userTitleform.titleName
                }).then(res => {
                     this.$emit('saveUserTitile')
                     this.$parent.getData()
@@ -100,11 +117,7 @@ export default {
            }
         },
         upload(){
-            apiUpload({
-                file: this.image
-            }).then(response => {
-                console.log(response)
-            })
+            
         }
     },
 }

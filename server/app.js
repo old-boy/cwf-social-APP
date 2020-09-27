@@ -1,12 +1,14 @@
 // var createError = require('http-errors');
-var express = require('express')
-var path = require('path');
-var cors = require('cors');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var session = require('express-session')
-var MongoStore = require('connect-mongo')(session)
-var bodyParser = require('body-parser')
+const express = require('express')
+const path = require('path');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
+const bodyParser = require('body-parser')
+
+
 var port = normalizePort(process.env.PORT || '4000');
 const dburl = "mongodb://localhost:27017/social";
 
@@ -18,8 +20,8 @@ var usersTag = require('./routes/users/userTag')
 var usersTitle = require('./routes/users/userTitle')
 var usersFollow = require('./routes/users/userFollow')
 var usersRole = require('./routes/users/userRole')
-
 var upload = require('./routes/upload/index')
+
 
 
 var app = express();
@@ -96,13 +98,9 @@ app.use('/api/users', usersTitle)
 app.use('/api/users', usersInfo)
 app.use('/api/users', usersFollow)
 app.use('/api/users', usersRole)
+app.use('/api/upload', upload)
 
-app.use('/api/users/upload',upload)
 
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -1,11 +1,11 @@
-import {get, post, del} from './http'
+import {get, post, del, upload} from './http'
 
 //登录，退出接口
 export const apiLogin = params => post('/users/login',params)
 export const apiLoginOut = params => get('/users/logout',params)
 
 //上传图片
-export const apiUpload = params => post('/upload',params)
+export const apiUpload = params => upload('/upload/add',params)
 
 //用户接口
 export const apiUserAdd = params => post('/users/add',params)
