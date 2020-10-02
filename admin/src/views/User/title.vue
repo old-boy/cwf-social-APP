@@ -75,7 +75,7 @@ export default {
     },
     data() {
         return {
-            titleId: '',
+            id: '',
             loadingFlag: false,
             breadcrumbName:'用户级别',
             tableData:[],
@@ -94,30 +94,34 @@ export default {
         showInfoModal(){
 
         },
-        async handleDel(index,row){
-            this.titleId = row._id
-            // console.log('del   ' + this.titleId)
+        handleDel(index,row){
+            this.id = row._id
             this.$confirm('是否确认要删除?', '提示',{
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             })
-            .then(() => {
-                console.log('deleId   ' + this.titleId)
-                apiDelTitle({id:this.titleId});
+            .then( async () => {
+                await apiDelTitle({id:this.id});
+                this.getData()
+
                 this.$message({
                     type:'success',
                     message:'删除成功'
                 })
-                
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                })
             })
         },
         Add(){
             //调用子组件中打开 dialog 的方法
             this.$refs.addTitleDialog.OpenTitle()
         },
-        getData(){
-            apiUserGetTitle().then(res => {
+        async getData(){
+            await apiUserGetTitle().then(res => {
                 this.tableData = res.result
             })
         },
