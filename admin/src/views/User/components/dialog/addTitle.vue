@@ -122,10 +122,10 @@ export default {
         },
         save(){
            this.centerDialogVisible = false
-           let filename = this.fileData.name
-           let size = this.fileData.size
-           let type = this.fileData.type
-           let uid = this.fileData.uid
+        //    let filename = this.fileData.name
+        //    let size = this.fileData.size
+        //    let type = this.fileData.type
+        //    let uid = this.fileData.uid
            if(this.isAdd){
                apiUserAddTitle({
                    titleName:this.userTitleform.titleName

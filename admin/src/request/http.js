@@ -47,6 +47,15 @@ axios.interceptors.response.use(
     // 这里可以跟你们的后台开发人员协商好统一的错误状态码    
     // 然后根据返回的状态码进行一些操作，例如登录过期提示，错误提示等等
     // 下面列举几个常见的操作，其他需求可自行扩展
+    config => {
+        config.data = JSON.stringify(config.data);
+        config.headers = { // 如果沒有cors的問題則可以都不加
+          "Access-Control-Allow-Origin": process.env.API_ROOT,
+          "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
+          "Access-Control-Max-Age": "86400"
+        };
+        return config;
+    },
     error => {            
         if (error.response.status) {            
             switch (error.response.status) {                
@@ -173,15 +182,31 @@ export function upload(url,params){
  */
 
 export function del(url,params){
-    return new Promise((resolve, reject) => {
-        axios.delete(url, {
+    return new Promise( async (resolve, reject) => {
+        await axios.delete(url, {
             params
+        }).then(res => {
+            resolve(res.data)
+        }).catch(err => {
+            reject(err.data)
         })
+    })
+}
+
+ /** 
+ * update方法，对应update请求 
+ * @param {String} url [请求的url地址] 
+ * @param {Object} params [请求时携带的参数] 
+ */
+
+export function update(url,params){
+    return new Promise((resolve, reject) => {
+        axios.post(url, params)
         .then(res => {
             resolve(res.data)
         })
         .catch(err => {
-            reject(err.data)
+            reject(err)
         })
     })
 }

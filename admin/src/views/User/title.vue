@@ -64,7 +64,7 @@
 <script>
 import breadcrumb from '../components/breadcrumb'
 import addTitleDialog from './components/dialog/addTitle'
-import {apiUserGetTitle,apiUserDelTitle} from '@/request/api'
+import {apiUserGetTitle,apiDelTitle} from '@/request/api'
 
 
 export default {
@@ -94,25 +94,22 @@ export default {
         showInfoModal(){
 
         },
-        handleDel(index,row){
+        async handleDel(index,row){
             this.titleId = row._id
             // console.log('del   ' + this.titleId)
             this.$confirm('是否确认要删除?', '提示',{
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
-            }).then(() => {
-                apiUserDelTitle({
-                    id:this.titleId
-                }).then((res) => {
-                    console.log(res)
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    })
-                }).catch(err => {
-                    console.log(err)
+            })
+            .then(() => {
+                console.log('deleId   ' + this.titleId)
+                apiDelTitle({id:this.titleId});
+                this.$message({
+                    type:'success',
+                    message:'删除成功'
                 })
+                
             })
         },
         Add(){

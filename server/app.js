@@ -72,6 +72,7 @@ app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
   res.header("X-Powered-By",' 3.2.1');
   res.header("Content-Type", "application/json;charset=utf-8");
+  res.header("Content-Type", "multipart/form-data");
   next();
 });
 
@@ -106,7 +107,6 @@ app.use(cors())
 app.use('/', index)
 app.use('/api/users', users)
 app.use('/api/users', usersTag)
-app.use('/api/users', usersTitle)
 app.use('/api/users', usersTitle)
 app.use('/api/users', usersInfo)
 app.use('/api/users', usersFollow)

@@ -42,17 +42,17 @@ userTitleRouter.route('/title/add')
         })
     })
 
-userTitleRouter.route('/title/:id')
-.delete((req, res) => {
-    var _id = `${req.params.id}`;
-    console.log(_id)
-    UserTitle.findById({ _id }).then((doc) => {
-        if (!doc) {
-            res.status(400).json({ message: `${doc} 不存在` })
-        } else {
-            UserTitle.deleteOne({ _id }).then(faq => res.status(200).json({ message: "删除成功" })).catch(err => { console.log(err) })
-        }
+userTitleRouter.route('/title')
+    .delete((req, res) => {
+        var _id = `${req.query.id}`;
+        console.log('传的ID  ' + _id)
+        UserTitle.findById({ _id }).then((doc) => {
+            if (!doc) {
+                res.status(400).json({ message: `${doc} 不存在` })
+            } else {
+                UserTitle.deleteOne({ _id }).then(title => res.status(200).json({ message: `${title} 删除成功` })).catch(err => { console.log(err) })
+            }
+        })
     })
-})
 
 module.exports = userTitleRouter

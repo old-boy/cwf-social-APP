@@ -20,4 +20,4 @@ export const apiUserAddInfo = params => post(`/users/info/add/${id}`,params)
 
 export const apiUserAddTitle = params => post('/users/title/add', params)
 export const apiUserGetTitle = params => get('/users/title',params)
-export const apiUserDelTitle = params => del('/users/title',params)
+export const apiDelTitle = params => del('/users/title',params)
