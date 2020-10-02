@@ -52,7 +52,7 @@
                     >
                         <template slot-scope="scope">
                         <el-button type="primary" size="mini"  @click="showInfoModal(scope.$index, scope.row)">修改</el-button>
-                        <el-button type="danger" size="mini" @click="showRemoveModal(scope.$index, scope.row)">删除</el-button>
+                        <el-button type="danger" size="mini" @click="remove(scope.$index, scope.row)">删除</el-button>
                         </template>
                     </el-table-column>
                     </el-table>
@@ -65,7 +65,7 @@
 <script>
 import breadcrumb from '../components/breadcrumb'
 import addRoleDialog from './components/dialog/addRole'
-import { apiUserGetRole } from '@/request/api'
+import { apiUserGetRole,apiDelRole } from '@/request/api'
 export default {
     name:'userRole',
     components:{
@@ -74,6 +74,7 @@ export default {
     },
     data() {
         return {
+            id:'',
             loadingFlag: false,
             breadcrumbName:'用户角色',
             userRole:[],
@@ -93,7 +94,28 @@ export default {
         showInfoModal(){
 
         },
-        showRemoveModal(){
+        remove(index,row){
+            this.id = row._id
+
+            this.$confirm('是否确认要删除?', '提示',{
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            })
+            .then( async () => {
+                await apiDelRole({id:this.id});
+                this.getData()
+
+                this.$message({
+                    type:'success',
+                    message:'删除成功'
+                })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                })
+            })
 
         },
         getData(){

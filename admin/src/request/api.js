@@ -15,6 +15,7 @@ export const apiUserGetTag = params => get('/users/tag',params)
 
 export const apiUserAddRole = params => post('/users/role/add',params)
 export const apiUserGetRole = params => get('/users/role',params)
+export const apiDelRole = params => del('/users/role',params)
 
 export const apiUserAddInfo = params => post(`/users/info/add/${id}`,params)
 

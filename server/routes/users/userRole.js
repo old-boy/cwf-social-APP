@@ -40,4 +40,17 @@ userRoleRouter.route('/role/add')
         })  
     })
 
+userRoleRouter.route('/role')
+    .delete((req,res,next) => {
+        let _id = `${req.query.id}`
+
+        UserRole.findById({ _id }).then((doc) => {
+            if (!doc) {
+                res.status(400).json({ message: `${doc} 不存在` })
+            } else {
+                UserRole.deleteOne({ _id }).then(title => res.status(200).json({ message: `${title} 删除成功` })).catch(err => { console.log(err) })
+            }
+        })
+    })
+
 module.exports = userRoleRouter

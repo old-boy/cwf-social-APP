@@ -55,6 +55,7 @@ export default {
                     roleName: this.userRoleform.roleName
                 }).then(response => {
                     this.$emit('saveUserRole')
+                    this.$parent.getData()
                 })
             }else{
                 //更新接口
