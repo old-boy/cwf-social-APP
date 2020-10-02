@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-import { Message } from 'element-ui'
+import { Notification, Loading, Message } from "element-ui";
 
 // 环境的切换
 if (process.env.NODE_ENV == 'development') {    
@@ -10,6 +10,24 @@ if (process.env.NODE_ENV == 'development') {
 } else if (process.env.NODE_ENV == 'production') {    
     axios.defaults.baseURL = 'https://www.production.com';
 }
+
+let curMsg = {
+    //成功信息提示
+    success(info) {
+      Notification({
+        type: "success",
+        message: info
+      });
+    },
+    //错误信息提示
+    error(info) {
+      Notification({
+        type: "error",
+        message: info
+      });
+    }
+  };
+
 
 //请求超时时间
 axios.defaults.timeout = 10000;
@@ -130,12 +148,15 @@ axios.interceptors.response.use(
  * upload方法，对应post请求 
  * @param {String} url [请求的url地址] 
  * @param {Object} params [请求时携带的参数] 
+ * @param 不能序列化，否则传过来的参数就不是 file
  */
 
-export function upload(url){
+export function upload(url,params){
+    // console.log('upload  ' + JSON.stringify(params))
     return new Promise((resolve, reject) => {
-        axios.post(url)
+        axios.post(url, params)
         .then(res => {
+            console.log('upload  ' + res)
             resolve(res.data)
         })
         .catch(err => {

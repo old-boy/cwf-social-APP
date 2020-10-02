@@ -1,4 +1,8 @@
 // var createError = require('http-errors');
+/**
+ * bodyParser 不支持 multipart/form-data 上传文件类型表单
+ * multer 支持 multipart/form-data 上传文件类型表单
+ */
 const express = require('express')
 const path = require('path');
 const cors = require('cors');
@@ -7,6 +11,11 @@ const logger = require('morgan');
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const bodyParser = require('body-parser')
+const multer  = require('multer')
+// const upload = multer({dest:'/uploads'});
+
+
+
 
 
 var port = normalizePort(process.env.PORT || '4000');
@@ -26,7 +35,8 @@ var upload = require('./routes/upload/index')
 
 var app = express();
 
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
+const { join } = require('path');
 mongoose.Promise = global.Promise
 
 mongoose.connect(dburl, { 
@@ -60,7 +70,7 @@ app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-  res.header("X-Powered-By",' 3.2.1')
+  res.header("X-Powered-By",' 3.2.1');
   res.header("Content-Type", "application/json;charset=utf-8");
   next();
 });
@@ -88,7 +98,10 @@ app.use(bodyParser.json())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')))
+
+
 app.use(cors())
+
 
 app.use('/', index)
 app.use('/api/users', users)

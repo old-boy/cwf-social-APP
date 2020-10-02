@@ -22,6 +22,8 @@
                         :on-change="handleChange"
                         :file-list="fileList"
                         :http-request="uploadObj"
+                        :headers="headers"
+                        :name="uploadName"
                         list-type="picture">
                         <el-button size="small" type="primary">点击上传</el-button>
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -40,13 +42,14 @@
     </div>
 </template>
 <script>
-import {apiUserAddTitle,apiUpload} from '@/request/api'
+import {apiUserAddTitle,apiUpload } from '@/request/api'
+
 export default {
-    name:'userTag',
+    name:'userTitle',
     data() {
         return {
             isAdd:true,
-            fileData:{},
+            fileData:null,
             centerDialogVisible: false,
             showClo:false,
             dialogtitle:'',
@@ -55,10 +58,19 @@ export default {
                 image:''
             },
             fileList:[],
-            image1: "",
+            uploadName:'upload',
             formLabelWidth: '120px'
         }
     },
+    computed: {
+        //设置请求头
+        headers() {
+            return {
+                // 设置Content-Type类型为multipart/form-data
+                'ContentType': 'multipart/form-data'
+            }
+        }
+    },  
     methods: {
         OpenTitle(){
             this.centerDialogVisible = true
@@ -71,8 +83,10 @@ export default {
 
         },
         handleChange(file, fileList){
-            console.log(file)
             this.fileList = fileList
+            this.fileData = file
+
+            console.log('aaa ' + this.fileData)
         },
         handleRemove(file, fileList) {
             
@@ -80,10 +94,17 @@ export default {
         handlePreview(file) {
             
         },
-        uploadObj(){
-            apiUpload({
-                file: this.fileList
-            }).then(response => {
+        uploadObj(item){
+            // console.log('submitFile  ' + item)
+            var fileObj = {
+                name: item.file.name,
+                size: item.file.size,
+                type: item.file.type,
+                uid: item.file.uid,
+                lastModified: item.file.lastModified
+            }
+
+            apiUpload(fileObj).then(response => {
                 console.log('uploadResponse   ' + response)
             })
         },
