@@ -1,6 +1,6 @@
 # app
 
-## Project Created 项目名称：app
+## vue cli 创建项目：app
 ```
 vue create -p dcloudio/uni-preset-vue app
 
@@ -17,6 +17,10 @@ npm i @types/uni-app @types/html5plus -D
 ### 启动项目
 ```
 npm run serve
+
+ App running at:
+ - [x] Local:   http://localhost:8080/
+ - [x] Network: http://192.168.88.142:8080/
 ```
 
 ### Customize configuration
