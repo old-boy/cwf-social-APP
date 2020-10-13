@@ -77,7 +77,7 @@
 	.home-text-recommended{
 		.header{
 			width: 100%;
-			height: 40rpx;
+			height: 80rpx;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
