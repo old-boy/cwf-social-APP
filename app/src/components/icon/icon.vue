@@ -1,32 +1,27 @@
 <template>
     <view class="icon-warp" @click="clickIcon" :backgroud="backgroud">
-        <image :size="size" :color="color" :src="src" class="icon"></image>
+        <image :src="src" class="icon"></image>
     </view>
 </template>
 <script>
 export default {
-    data(){
-        return {
-            size:String,
-            color:String,
-            src:String,
-            backgroud:String
-        }
-    },
+    name:"mIcon",
+    props:['src','backgroud'],
     methods: {
         clickIcon(){
-            
+            this.$emit('click')
         }
     },
 }
 </script>
-<style lang="scss" scoped>
+<style rel="stylesheet/scss" lang="scss" scoped>
     .icon-warp{
         display: flex;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
         .icon{
-            width: 50px;
+            width: 50rpx;
+            height: 50rpx;
         }
     }
 </style>
