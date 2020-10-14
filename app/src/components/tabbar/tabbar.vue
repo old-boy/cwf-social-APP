@@ -1,36 +1,77 @@
 <template>
     <view class="tab-bar">
-        <navigator 
-            :url="url" 
-            :hover-class="hoverClass"
-            :animation-type="animationType"
-            :animation-duration="200"
-            class="tab"
-        >{{tabName}}</navigator>
+        <scroll-view class="uni-swiper-tab" scroll-x="true" >
+            <block v-for="(tab,index) in tabBars" :key="tab.id">
+                <view 
+                    class="scroll-view-item" 
+                    :class="{'active' : tabIndex==index}"
+                    @tap="tabClick(index)"
+                    :style="scrollBarItemSytle"
+                >
+                    {{tab.name}} {{tab.num?tab.num:""}}
+                <view 
+                    class="swiper-tab-line" 
+                    :isShow="isShow"
+                    :class="{'show' : isShow==true }"></view>
+                </view>
+            </block>
+        </scroll-view>
     </view>
 </template>
 <script>
 export default {
     name:'navBar',
-    props:['hoverClass','tabName','url'],
-    data() {
-        return {
-            animationType: 'pop-in'
+    props:{
+        tabBars: Array,
+        tabIndex: Number,
+        isShow: Boolean,
+        scrollBarItemSytle:{
+            type: String,
+            default: ''
         }
-    }
+    },
+    methods: {
+        tabClick(index){
+            this.$emit('tabClick', index)
+        }
+    },
 }
 </script>
 <style lang="scss" scoped>
     .tab-bar{
-        flex: 1;
-        text-align: center;
+        width: 100%;
+        height: 80rpx;
         display: flex;
-        justify-content: center;
+    }
+	.scroll-view-item{
+		color: #999;
+	}
+    .uni-scroll-view-content,
+    .uni-scroll-view{
+        display: flex;
+        justify-content: space-around;
         align-items: center;
-        .tab{
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            font-size: 18px;
+    }
+    .uni-tab-bar{
+        width: 100%;
+        .active{
             color: #555;
+            font-weight: bold;
         }
     }
+	.active{
+        color: #555;
+        font-weight: bold;
+        .swiper-tab-line{
+            display: none;
+            border-bottom: 3rpx solid #555;
+            width: 70rpx;
+            margin: auto;
+            border-top: 3rpx solid #555;
+            border-radius: 10rpx;
+            &.show{
+                display: block;
+            }
+        }
+	}
 </style>
