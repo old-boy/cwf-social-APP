@@ -1,11 +1,16 @@
 <template>
     <view class="personnel-avatar">
         <image :src="titleSrc" class="title"></image>
-        <image :src="avatarSrc" class="avatar"></image>
+        <image :src="avatarSrc" class="avatar" :mode="imageMode"></image>
     </view>
 </template>
 <script>
 export default {
+    data() {
+        return {
+            imageMode:'scaleToFill'
+        }
+    },
     props:['titleSrc','avatarSrc']
 }
 </script>
@@ -17,7 +22,6 @@ export default {
         justify-content: center;
         align-items: center;
         position: relative;
-        margin-right: 20rpx;
         .avatar{
             width: 150rpx;
             height: 150rpx;
@@ -28,8 +32,8 @@ export default {
             width: 60rpx;
             height: 60rpx;
             position: absolute;
-            right: 20rpx;
-            top: 10rpx;
+            left: 20rpx;
+            top: 0;
         }
     }
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<view class="home-text-recommended">
+	<view class="home-recommended">
 		<!-- header -->
 		<view class="header">
 			<view class="search">
@@ -17,15 +17,44 @@
 				<mIcon :src="fabuIconUrl" :click="fabuClick" />
 			</view>
 		</view>
-		<view class="sub-menu">
-			<mTab 
-				:tabBars="subTabBars"
-				:tabIndex="subTabIndex"
-				:isShow="subTabLineShow"
-				@tabClick="subTabbarHandle" />
-		</view>
-		<view class="main">
-			
+		<view class="main-warp">
+			<!-- tab menu container -->
+			<view class="sub-menu">
+				<mTab 
+					:tabBars="subTabBars"
+					:tabIndex="subTabIndex"
+					:isShow="subTabLineShow"
+					@tabClick="subTabbarHandle" />
+			</view>
+			<swiper class="swiper"
+					:current="subTabIndex"
+					@change="tabChange">
+				<swiper-item v-for="(items, index) in contents" :key="index">
+					<scroll-view scroll-y 
+								 class="list"
+								 :refresher-background="refBg"
+								 :upper-threshold="50"
+								 :lower-threshold="50"
+								 :show-scrollbar="showScrollBar"
+								 :refresher-enabled="refresherEnabled"
+								 :disable-touch="disableTouch">
+						<template v-if="items.list.length > 0">
+                            <!-- list -->
+                            <block v-for="(item,i) in items.list" :key="i">
+                                <view v-if="subTabIndex == 0">
+									<text>{{item.name}}</text>
+								</view>
+								<view v-else-if="subTabIndex == 1" class="hot">
+									<mHotPerCard />
+								</view>
+								<view v-else-if="subTabIndex == 2">
+									<text>{{item.name}}</text>
+								</view>
+                            </block>
+                        </template>
+					</scroll-view>
+				</swiper-item>
+			</swiper>
 		</view>
 	</view>
 </template>
@@ -33,7 +62,8 @@
 <script>
 	import mIcon from '@/components/icon/icon';
 	import mTab from '@/components/tabbar/tabbar';
-	import mPerCard from '@/components/personnel/baseCard.vue';
+	import mHotPerCard from '@/components/personnel/baseCard.vue';
+
 
 
 	import searchIcon from '@/static/icons/header/sousuo.png';
@@ -44,15 +74,19 @@
 		components:{
 			mIcon,
 			mTab,
-			mPerCard
+			mHotPerCard
 		},
 		data() {
 			return {
 				searchIconUrl:'',
 				messageIconUrl:'',
 				fabuIconUrl:'',
+				disableTouch:true,
 				tabLineShow:true,
 				subTabLineShow:false,
+				showScrollBar:false,
+				refresherEnabled:true,
+				refBg:'#f2f2f2',
 				tabBars:[{
 					name:'关注',
 					id:'guanzhu'
@@ -74,8 +108,31 @@
 						id: 'goldList'
 					}
 				],
-				tabIndex:0,
-				subTabIndex:0
+				tabIndex:1,
+				subTabIndex:0,
+				contents:[
+					{
+						list: [
+							{
+								name:'aaa'
+							}
+						]
+					},
+					{
+						list: [
+							{
+								name:'bb'
+							}
+						]
+					},
+					{
+						list:[
+							{
+								name:'ccc'
+							}
+						]
+					}
+				]
 			}
 		},
 		onShow() {
@@ -103,12 +160,16 @@
 			},
 			fabuClick(){
 				console.log('fabu')
+			},
+			tabChange(e){
+				// console.log(e)
+				this.subTabIndex = e.detail.current
 			}
 		}
 	}
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
-	.home-text-recommended{
+	.home-recommended{
 		width: 100%;
 		height: 100%;
 		.header{
@@ -141,14 +202,16 @@
 				align-items: center;
 			}
 		}
+		.hot{
+			width: 100%;
+		}
 		.sub-menu{
 			width: 100%;
 			height: 80rpx;
 			background: #fff;
 			margin: 20rpx 0;
 		}
-		.main{
-			height: calc(100% - 80rpx);
+		.list{
 			padding: 15rpx;
 			background: #fff;
 		}
